@@ -1,31 +1,83 @@
-import React from 'react';
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
+//this should be an explore page, display all mentors 
+//do not display the logged in user themselves
 
-import Highlight from '../../components/Highlight';
+'use client';
+import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0/client'; // Import from client package
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase.js';
 
-export default withPageAuthRequired(
-  async function SSRPage() {
-    const { user } = await getSession();
-    return (
-      <>
-        <div className="mb-5" data-testid="ssr">
-          <h1 data-testid="ssr-title">Server-side Rendered Page</h1>
-          <div data-testid="ssr-text">
-            <p>
-              You can protect a server-side rendered page by wrapping it with <code>withPageAuthRequired</code>. Only
-              logged in users will be able to access it. If the user is logged out, they will be redirected to the login
-              page instead.{' '}
-            </p>
+import React, { useEffect, useState } from 'react';
+
+export default function FindMentor() {
+  const [users, setUsers] = useState([]);
+  const [selectedCareerPath, setSelectedCareerPath] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const usersData = querySnapshot.docs.map(doc => doc.data());
+        setUsers(usersData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleCareerPathChange = (e) => {
+    setSelectedCareerPath(e.target.value);
+  };
+
+  const handleMatchMeClick = () => {
+    // Implement matching logic here
+  };
+
+  const filteredUsers = selectedCareerPath === '' ? users : users.filter(user => user.careerPath === selectedCareerPath);
+
+  return (
+    <div>
+      <h2>Meet our current mentors!</h2>
+      <p>Filter by career path:</p>
+      <select value={selectedCareerPath} onChange={handleCareerPathChange}>
+        <option value="">All</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Medicine">Medicine</option>
+        <option value="Finance">Finance</option>
+        <option value="Writing">Writing</option>
+      </select>
+      <button onClick={handleMatchMeClick} style={{ marginTop: '10px' }}>Match me</button>
+      <div className="mentor-container">
+        {filteredUsers.map(user => (
+          <div className="mentor-card" key={user.email}>
+            <div className="card-content">
+              <h3>{user.firstName} {user.lastName}</h3>
+              <p>Email: {user.email}</p>
+              {/* Check if user.careerPath and user.blurb exist before rendering */}
+              {user.careerPath && <p>Career Path: {user.careerPath}</p>}
+              {user.blurb && <p>Blurb: {user.blurb}</p>}
+            </div>
           </div>
-        </div>
-        <div className="result-block-container" data-testid="ssr-json">
-          <div className="result-block">
-            <h6 className="muted">User</h6>
-            <Highlight>{JSON.stringify(user, null, 2)}</Highlight>
-          </div>
-        </div>
-      </>
-    );
-  },
-  { returnTo: '/ssr' }
-);
+        ))}
+      </div>
+      <style jsx>{`
+        .mentor-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust minmax values as needed */
+          gap: 20px; /* Adjust gap between cards */
+        }
+  
+        .mentor-card {
+          border: 1px solid #ccc; /* Border for each card */
+          border-radius: 5px; /* Rounded corners for each card */
+          overflow: hidden; /* Ensure content doesn't overflow */
+        }
+  
+        .card-content {
+          padding: 20px; /* Padding for content within each card */
+        }
+      `}</style>
+    </div>
+  );
+}
