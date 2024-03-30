@@ -90,18 +90,7 @@ export default withPageAuthRequired(function CSRPage() {
                 onChange={handleChange}
               />
             </div>
-            {/* <div>
-              <label htmlFor="status">Select Status:</label>
-              <select
-                id="status"
-                name="status"
-                value={newItem.status}
-                onChange={handleChange}
-              >
-                <option value="mentor">Mentor</option>
-                <option value="mentee">Mentee</option>
-              </select>
-            </div> */}
+            {}
 
 
             <div>
@@ -112,8 +101,8 @@ export default withPageAuthRequired(function CSRPage() {
                 value={newItem.status}
                 onChange={handleChange}
               >
-                <option value="mento">Mentor</option>
-                <option value="mente">Mentee</option>
+                <option value="mentor">Mentor</option>
+                <option value="mentee">Mentee</option>
               </select>
             </div>
 
@@ -151,7 +140,7 @@ export default withPageAuthRequired(function CSRPage() {
                 onChange={handleChange}
               />
             </div>
-            <button type="submit"onClick={addItem}>Submit</button>
+            <button type="submit">Submit</button>
           </form>
         </div>
       </div>
