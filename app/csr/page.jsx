@@ -10,6 +10,7 @@ export default withPageAuthRequired(function CSRPage() {
     lastName: '',
     email: '',
     status: '',
+    // status: '',
     careerPath: '',
     interests: '', // Interests stored as a string
     blurb: ''
@@ -22,6 +23,8 @@ export default withPageAuthRequired(function CSRPage() {
       newItem.lastName !== '' &&
       newItem.email !== '' &&
       newItem.status !== '' &&
+
+      // newItem.status !== '' &&
       newItem.careerPath !== '' &&
       newItem.blurb !== '' &&
       newItem.interests.trim() !== '' // Check if interests is not empty or just whitespace
@@ -31,6 +34,7 @@ export default withPageAuthRequired(function CSRPage() {
         lastName: newItem.lastName,
         email: newItem.email,
         status: newItem.status,
+        // status: newItem.status,
         interests: newItem.interests,
         careerPath: newItem.careerPath,
         blurb: newItem.blurb,
@@ -86,8 +90,8 @@ export default withPageAuthRequired(function CSRPage() {
                 onChange={handleChange}
               />
             </div>
-            <div>
-              <label htmlFor="status">Select status:</label>
+            {/* <div>
+              <label htmlFor="status">Select Status:</label>
               <select
                 id="status"
                 name="status"
@@ -97,7 +101,22 @@ export default withPageAuthRequired(function CSRPage() {
                 <option value="mentor">Mentor</option>
                 <option value="mentee">Mentee</option>
               </select>
+            </div> */}
+
+
+            <div>
+              <label htmlFor="status">Select Status:</label>
+              <select
+                id="status"
+                name="status"
+                value={newItem.status}
+                onChange={handleChange}
+              >
+                <option value="mento">Mentor</option>
+                <option value="mente">Mentee</option>
+              </select>
             </div>
+
             <div>
               <label htmlFor="careerPath">Select one main career path:</label>
               <select
