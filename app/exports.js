@@ -16,7 +16,7 @@ export function calculateJaccard(menteeInterests, mentorInterests, commonInteres
         return 0;
     }
     let coefficient = commonInterestsSize / (menteeInterestsSize + mentorInterestsSize - commonInterestsSize);
-    return coefficient;
+    return `${coefficient*100}%`;
 }
 
 export let array = ["Unsure", "Computer Science", "Medicine", "Finance", "Writing"];
