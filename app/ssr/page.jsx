@@ -36,6 +36,10 @@ export default function FindMentor() {
 
   const filteredUsers = selectedCareerPath === '' ? users : users.filter(user => user.careerPath === selectedCareerPath);
 
+  const handleChatClick = () => {
+    window.location.href = '/external';
+  };
+  
   return (
     <div>
       <h2>Meet our current mentors!</h2>
@@ -57,6 +61,7 @@ export default function FindMentor() {
               {/* Check if user.careerPath and user.blurb exist before rendering */}
               {user.careerPath && <p>Career Path: {user.careerPath}</p>}
               {user.blurb && <p>Blurb: {user.blurb}</p>}
+              <button onClick={handleChatClick}>Chat</button>
             </div>
           </div>
         ))}
