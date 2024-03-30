@@ -9,8 +9,7 @@ export default withPageAuthRequired(function CSRPage() {
     firstName: '',
     lastName: '',
     email: '',
-    status: '',
-    // status: '',
+    stat: '',
     careerPath: '',
     interests: '', // Interests stored as a string
     blurb: ''
@@ -22,9 +21,7 @@ export default withPageAuthRequired(function CSRPage() {
       newItem.firstName !== '' &&
       newItem.lastName !== '' &&
       newItem.email !== '' &&
-      newItem.status !== '' &&
-
-      // newItem.status !== '' &&
+      newItem.stat !== '' &&
       newItem.careerPath !== '' &&
       newItem.blurb !== '' &&
       newItem.interests.trim() !== '' // Check if interests is not empty or just whitespace
@@ -33,8 +30,7 @@ export default withPageAuthRequired(function CSRPage() {
         firstName: newItem.firstName,
         lastName: newItem.lastName,
         email: newItem.email,
-        status: newItem.status,
-        // status: newItem.status,
+        stat: newItem.stat,
         interests: newItem.interests,
         careerPath: newItem.careerPath,
         blurb: newItem.blurb,
@@ -90,19 +86,29 @@ export default withPageAuthRequired(function CSRPage() {
                 onChange={handleChange}
               />
             </div>
-            {}
-
-
-            <div>
-              <label htmlFor="status">Select Status:</label>
+            {/* <div>
+              <label htmlFor="stat">Select stat:</label>
               <select
-                id="status"
-                name="status"
-                value={newItem.status}
+                id="stat"
+                name="stat"
+                value={newItem.stat}
                 onChange={handleChange}
               >
                 <option value="mentor">Mentor</option>
                 <option value="mentee">Mentee</option>
+              </select>
+            </div> */}
+
+            <div>
+              <label htmlFor="stat">Select stat:</label>
+              <select
+                id="stat"
+                name="stat"
+                value={newItem.stat}
+                onChange={handleChange}
+              >
+                <option value="path1">Mentor</option>
+                <option value="path2">Mentee</option>
               </select>
             </div>
 
