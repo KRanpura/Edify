@@ -11,7 +11,7 @@ export default withPageAuthRequired(function CSRPage() {
     email: '',
     status: '',
     careerPath: '',
-    interests: [], // Store interests as an array
+    interests: '', // Interests stored as a string
     blurb: ''
   });
 
@@ -23,15 +23,15 @@ export default withPageAuthRequired(function CSRPage() {
       newItem.email !== '' &&
       newItem.status !== '' &&
       newItem.careerPath !== '' &&
-      newItem.interests.length > 0 && // Check if interests array is not empty
-      newItem.blurb !== ''
+      newItem.blurb !== '' &&
+      newItem.interests.trim() !== '' // Check if interests is not empty or just whitespace
     ) {
       await addDoc(collection(db, 'users'), {
         firstName: newItem.firstName,
         lastName: newItem.lastName,
         email: newItem.email,
         status: newItem.status,
-        interests: newItem.interests.join(', '), // Join interests array into a comma-separated string
+        interests: newItem.interests,
         careerPath: newItem.careerPath,
         blurb: newItem.blurb,
       });
@@ -45,18 +45,9 @@ export default withPageAuthRequired(function CSRPage() {
     });
   };
 
-  const handleInterestsChange = (e) => {
-    // Split the input value by space and update the interests array
-    setFormData({
-      ...newItem,
-      interests: e.target.value.split(' ')
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(newItem);
+    addItem(e);
   };
 
   return (
@@ -125,15 +116,15 @@ export default withPageAuthRequired(function CSRPage() {
             </div>
             <div>
               <label htmlFor="interests">Interests:</label>
-              <textarea
+              <input
                 id="interests"
                 name="interests"
-                value={newItem.interests.join(' ')} // Join interests array for display
-                onChange={handleInterestsChange}
+                value={newItem.interests}
+                onChange={handleChange}
               />
             </div>
             <div>
-              <label htmlFor="blurb">Blurb about your goals and interests:</label>
+              <label htmlFor="blurb">A short blurb about yourself:</label>
               <textarea
                 id="blurb"
                 name="blurb"
@@ -141,7 +132,7 @@ export default withPageAuthRequired(function CSRPage() {
                 onChange={handleChange}
               />
             </div>
-            <button type="submit" onClick={addItem}>Submit</button>
+            <button type="submit"onClick={addItem}>Submit</button>
           </form>
         </div>
       </div>
