@@ -18,8 +18,8 @@ export default withPageAuthRequired(function CSRPage() {
   const addItem = async (e) => {
     e.preventDefault();
     if (newItem.name !== '') {
-      setItems([...items, newItem]);
-      //await addDoc(collection(db, 'items'), {
+      setusers([...users, newItem]);
+      //await addDoc(collection(db, 'users'), {
       //  name: newItem.name.trim(), 
       //});
     }
@@ -132,31 +132,35 @@ export default withPageAuthRequired(function CSRPage() {
 
   const addItem = async (e) => {
     e.preventDefault();
-    if (newItem.firstName !== '') {
-      await addDoc(collection(db, 'items'), {
+    if (newItem.firstName !== '' && newItem.lastName !== '' && newItem.email !== '' && newItem.careerPath !== '' && newItem.goals !== '') {
+      await addDoc(collection(db, 'users'), {
         firstName: newItem.firstName, 
+        lastName: newItem.lastName,
+        email: newItem.email, 
+        careerPath: newItem.careerPath,
+        goals: newItem.goals, 
       });
     }
-    if (newItem.lastName !== '') {
-      await addDoc(collection(db, 'items'), {
+    /*if (newItem.lastName !== '') {
+      await addDoc(collection(db, 'users'), {
         lastName: newItem.lastName, 
       });
     }
     if (newItem.email !== '') {
-      await addDoc(collection(db, 'items'), {
+      await addDoc(collection(db, 'users'), {
         email: newItem.email, 
       });
     }
     if (newItem.careerPath !== '') {
-      await addDoc(collection(db, 'items'), {
+      await addDoc(collection(db, 'users'), {
         careerPath: newItem.careerPath, 
       });
     }
     if (newItem.goals !== '') {
-      await addDoc(collection(db, 'items'), {
+      await addDoc(collection(db, 'users'), {
         goals: newItem.goals, 
       });
-    }
+    }*/
   };
 
   const handleChange = (e) => {
