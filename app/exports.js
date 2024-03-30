@@ -19,4 +19,26 @@ export function calculateJaccard(menteeInterests, mentorInterests, commonInteres
     return `${coefficient*100}%`;
 }
 
+export function separateInterests(fetched) {
+    const interestArray = fetched.split(',');
+    return interestArray;
+}
+
+export async function fetchNameFromFirestore(docId) {
+    try {
+        const docRef = doc(db, 'users', docId);
+        const docSnapshot = await getDoc(docRef);
+        if (docSnapshot.exists()) {
+            const interests = docSnapshot.data().interests;
+            return interests;
+        } 
+        else {
+            console.log('No such document!');
+        }
+    } 
+    catch (error) {
+        console.error('Error fetching document:', error);
+    }
+}
+
 //export let array = ["Unsure", "Computer Science", "Medicine", "Finance", "Writing"];
