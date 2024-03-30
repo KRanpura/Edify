@@ -19,4 +19,4 @@ export function calculateJaccard(menteeInterests, mentorInterests, commonInteres
     return `${coefficient*100}%`;
 }
 
-export let array = ["Unsure", "Computer Science", "Medicine", "Finance", "Writing"];
+//export let array = ["Unsure", "Computer Science", "Medicine", "Finance", "Writing"];

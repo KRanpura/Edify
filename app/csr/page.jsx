@@ -1,46 +1,39 @@
 'use client';
-import { collection, addDoc, getDocs } from "firebase/firestore"; 
-import { db } from '../firebase.js';
-
 import React, { useState } from 'react';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/client';
-
-
-// async function fetchDataFromFirestore(){
-//   const querySnapshot = await getDocs(collection(db, "users"))
-
-//   const data = [];
-//   querySnapshot.forEach((doc) => {
-//     data.push({ id: doc.id, ...doc.data()});
-//   });
-
-//   return data; 
-// }
-
-
-//^^^might be needed later to fetch data
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase.js';
 
 export default withPageAuthRequired(function CSRPage() {
-
   const [newItem, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     status: '',
     careerPath: '',
+    interests: [], // Store interests as an array
     blurb: ''
   });
 
   const addItem = async (e) => {
     e.preventDefault();
-    if (newItem.firstName !== '' && newItem.lastName !== '' && newItem.email !== '' && newItem.status !== '' && newItem.careerPath !== '' && newItem.blurb !== '') {
+    if (
+      newItem.firstName !== '' &&
+      newItem.lastName !== '' &&
+      newItem.email !== '' &&
+      newItem.status !== '' &&
+      newItem.careerPath !== '' &&
+      newItem.interests.length > 0 && // Check if interests array is not empty
+      newItem.blurb !== ''
+    ) {
       await addDoc(collection(db, 'users'), {
-        firstName: newItem.firstName, 
+        firstName: newItem.firstName,
         lastName: newItem.lastName,
-        email: newItem.email, 
+        email: newItem.email,
         status: newItem.status,
+        interests: newItem.interests.join(', '), // Join interests array into a comma-separated string
         careerPath: newItem.careerPath,
-        blurb: newItem.blurb, 
+        blurb: newItem.blurb,
       });
     }
   };
@@ -52,12 +45,21 @@ export default withPageAuthRequired(function CSRPage() {
     });
   };
 
+  const handleInterestsChange = (e) => {
+    // Split the input value by space and update the interests array
+    setFormData({
+      ...newItem,
+      interests: e.target.value.split(' ')
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
     console.log(newItem);
   };
-return (
+
+  return (
     <>
       <div className="mb-5" data-testid="csr">
         <h1 data-testid="csr-title">Update Profile</h1>
@@ -74,8 +76,7 @@ return (
               />
             </div>
             <div>
-              <label htmlFor="lastName"
->Last Name:</label>
+              <label htmlFor="lastName">Last Name:</label>
               <input
                 type="text"
                 id="lastName"
@@ -102,9 +103,9 @@ return (
                 value={newItem.status}
                 onChange={handleChange}
               >
-                <option value="mentor">Mentor </option>
-                <option value="mentee">Mentee </option>
-</select>
+                <option value="mentor">Mentor</option>
+                <option value="mentee">Mentee</option>
+              </select>
             </div>
             <div>
               <label htmlFor="careerPath">Select one main career path:</label>
@@ -114,13 +115,22 @@ return (
                 value={newItem.careerPath}
                 onChange={handleChange}
               >
-                <option value="path0">Select </option>
-                <option value="All">Open to all </option>
+                <option value="path0">Select</option>
+                <option value="All">Open to all</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Medicine">Medicine</option>
                 <option value="Finance">Finance</option>
                 <option value="Writing">Writing</option>
-</select>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="interests">Interests:</label>
+              <textarea
+                id="interests"
+                name="interests"
+                value={newItem.interests.join(' ')} // Join interests array for display
+                onChange={handleInterestsChange}
+              />
             </div>
             <div>
               <label htmlFor="blurb">Blurb about your goals and interests:</label>
@@ -131,10 +141,7 @@ return (
                 onChange={handleChange}
               />
             </div>
-            <button 
-            type="submit"
-            onClick={addItem}
-            >Submit</button>
+            <button type="submit" onClick={addItem}>Submit</button>
           </form>
         </div>
       </div>
