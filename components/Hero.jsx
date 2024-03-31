@@ -1,6 +1,5 @@
 
 import React, { useEffect } from 'react';
-import Logo from './Logo';
 
 const Hero = () => {
   useEffect(() => {

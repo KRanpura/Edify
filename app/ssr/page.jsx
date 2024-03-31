@@ -149,6 +149,7 @@ export default function FindMentor() {
               <h3>{user.firstName} {user.lastName}</h3>
               <p>Email: {user.email}</p>
               {user.careerPath && <p>Career Path: {user.careerPath}</p>}
+              {user.interests && <p>Interests: {user.interests}</p>}
               {user.blurb && <p>Blurb: {user.blurb}</p>}
               {user.matchPercent && <p>Match Percentage: {user.matchPercent}</p>}
               <button onClick={handleChatClick}>Chat</button>
