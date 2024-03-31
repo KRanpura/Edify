@@ -12,4 +12,4 @@ To try Edify out for yourself, fork the repository and create an account. You'll
 
 Khushi Ranpura (https://github.com/KRanpura)
 Christopher Louderback (https://github.com/KRanpura)
-Prarabdha Almagarthapa (https://github.com/prarabdhathapa)
+Prarabdha Alemagarthapa (https://github.com/prarabdhathapa)
