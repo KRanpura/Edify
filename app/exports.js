@@ -20,9 +20,16 @@ export function calculateJaccard(menteeInterests, mentorInterests, commonInteres
 }
 
 export function separateInterests(fetched) {
-    const interestArray = fetched.split(',');
-    return interestArray;
-}
+    // Check if fetched is a string
+    if (typeof fetched === 'string') {
+      const interestArray = fetched.split(',');
+      return interestArray;
+    } else {
+      // Handle the case where fetched is not a string (e.g., if it's an array or null)
+      console.error('Error: Expected a string, but received:', fetched);
+      return [];
+    }
+  }
 
 export async function fetchNameFromFirestore(docId) {
     try {
