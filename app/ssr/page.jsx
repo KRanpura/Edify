@@ -128,7 +128,7 @@ export default function FindMentor() {
   const filteredUsers = selectedCareerPath === '' ? users : users.filter(user => user.careerPath === selectedCareerPath);
 
   const handleChatClick = () => {
-    window.location.href = '/external';
+    window.location.href = '/chat';
   };
 
   return (
