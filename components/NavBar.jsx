@@ -50,6 +50,11 @@ const NavBar = () => {
                     </PageLink>
                   </NavItem>
                   <NavItem>
+                    <PageLink href="/sortMen" className="nav-link" testId="navbar-sortMen">
+                      Sort Mentors
+                    </PageLink>
+                  </NavItem>
+                  <NavItem>
                     <PageLink href="/chat" className="nav-link" testId="navbar-external">
                       My Chats
                     </PageLink>
