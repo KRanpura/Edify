@@ -26,8 +26,8 @@ const NavBar = () => {
 
   return (
     <div className="nav-container" data-testid="navbar">
-      <Navbar color="light" light expand="md">
-        <Container>
+      <Navbar className= "navbar-edit" color="light" light expand="md">
+        <Container className='nav-edit'>
           <NavbarBrand className="logo" />
           <NavbarToggler onClick={toggle} data-testid="navbar-toggle" />
           <Collapse isOpen={isOpen} navbar>

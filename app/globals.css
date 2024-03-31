@@ -1,17 +1,81 @@
 
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 code {
   white-space: pre-wrap; 
   word-break: break-all; 
+
 }
 
 p code {
   color: var(--secondary);
   font-weight: 600;
+  
+}
+
+.tutor-image {
+  margin-top: 20px; 
+  margin-left: auto;
+}
+
+.tutor-image img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.hero-container {
+  margin-left: 0; 
+  margin-top: auto;
+  width: 450px;
+  height: max-content;
+  opacity: 0; 
+  transition: opacity 0.5s ease; 
+}
+
+.hero-container.fade-in {
+  opacity: 1; 
+  transition: 2s;
+}
+
+.lead{
+  font-size: 48px;
+}
+
+.tutor-image {
+  margin-left: auto;
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
+.tutor-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  mask-image: linear-gradient(to right, black, transparent);
+  -webkit-mask-image: linear-gradient(to right, black, transparent);
+}
+
+
+.gradient-text {
+  background: linear-gradient(to right, #62a3c4, #092d3f, #537080);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-variant: normal;
+  font-weight:bolder;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: larger;
 }
 
 #__next {
@@ -24,6 +88,30 @@ p code {
 
 .nav-item.dropdown .dropdown-item {
   padding: 0;
+}
+
+.nav-edit{
+  padding: 25px;
+  position: relative;
+  background: linear-gradient(to right, #79c3e7, #537080);
+  border-width: 10pt;
+  border-color: #3f2109;
+  border-radius: 25px;
+  width: max-content;
+  height: max-content;
+  align-items: center;
+}
+
+.nav-container {
+  padding: 25px;
+ 
+}
+
+.navbar-edit {
+  padding: 25px;
+  background: linear-gradient(to right, #79c3e7, #537080); 
+  border-radius: 25px;
+  border-bottom: black;
 }
 
 .nav-item.dropdown .dropdown-item a {
