@@ -10,6 +10,7 @@ export default withPageAuthRequired(function CSRPage() {
     firstName: '',
     lastName: '',
     email: '',
+    status: '',
     careerPath: '',
     interests: '', 
     blurb: ''
@@ -22,6 +23,7 @@ export default withPageAuthRequired(function CSRPage() {
         firstName: user.given_name || '',
         lastName: user.family_name || '',
         email: user.nickname ? `${user.nickname}@gmail.com` : '', // Use nickname as email or fallback to empty string
+        status: '',
         careerPath: '',
         interests: '',
         blurb: ''
@@ -35,6 +37,7 @@ export default withPageAuthRequired(function CSRPage() {
       newItem.firstName !== '' &&
       newItem.lastName !== '' &&
       newItem.email !== '' &&
+      newItem.status !== '' &&
       newItem.careerPath !== '' &&
       newItem.blurb !== '' &&
       newItem.interests.trim() !== '' 
@@ -43,6 +46,7 @@ export default withPageAuthRequired(function CSRPage() {
         firstName: newItem.firstName,
         lastName: newItem.lastName,
         email: newItem.email,
+        status: newItem.status,
         interests: newItem.interests,
         careerPath: newItem.careerPath,
         blurb: newItem.blurb,
@@ -104,6 +108,22 @@ export default withPageAuthRequired(function CSRPage() {
                 disabled
               />
             </div>
+
+            <div className="mb-4">
+              <label htmlFor="status" className="block">Select Status:</label>
+              <select
+                id="status"
+                name="status"
+                value={newItem.status}
+                onChange={handleChange}
+                className="input"
+              >
+                <option value="path0">Mentor</option>
+                <option value="path1">Mentee</option>
+                
+              </select>
+            </div>
+
             <div className="mb-4">
               <label htmlFor="careerPath" className="block">Select one main career path:</label>
               <select
